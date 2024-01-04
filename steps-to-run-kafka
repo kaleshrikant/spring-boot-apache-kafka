@@ -1,0 +1,29 @@
+Step 1: Start the Kafka environment
+# Start the ZooKeeper service
+$ bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# Start the Kafka broker service, Open another terminal session and run: 
+$ bin/kafka-server-start.sh config/server.properties
+
+Step 2: Create a topic to store your events
+So before you can write your first events, you must create a topic. Open another terminal session and run: 
+$ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
+
+Checking created topic.
+$ bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+Step 3: Write some events into the topic. Open another terminal session and run:
+$ bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
+This is my first event
+This is my second event
+
+Step 4: Read the events
+Open another terminal session and run the console consumer client to read the events you just created:
+$ bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
+
+shrikant@pop-os:~/Downloads/kafka_2.13-3.6.1$ bin/kafka-topics.sh --describe --topic cab-location --bootstrap-server localhost:9092
+Topic: cab-location     TopicId: FkQq18e7SDaGemYmiaYYGw PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: cab-location     Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+shrikant@pop-os:~/Downloads/kafka_2.13-3.6.1$ bin/kafka-console-consumer.sh --topic cab-location --from-beginning --bootstrap-server localhost:9092
+
+POSTMAN : PUT : http://localhost:8082/location
